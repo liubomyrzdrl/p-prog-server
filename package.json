@@ -1,0 +1,25 @@
+{
+  "name": "p-f-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/env": "^4.3.0",
+    "@fastify/multipart": "^8.2.0",
+    "@fastify/swagger": "^8.14.0",
+    "@types/node": "^20.12.11",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.27.0",
+    "fastify-env": "^2.2.0",
+    "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
