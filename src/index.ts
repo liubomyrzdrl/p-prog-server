@@ -1,14 +1,36 @@
 import Fastify, { FastifyInstance } from "fastify";
 import fastifyEnv from "@fastify/env";
 import multipart from "@fastify/multipart";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 import { config } from "./config/config";
 import router from "./routes";
-import { register } from "module";
 
 const fastify: FastifyInstance = Fastify({
   logger: true,
 });
+const swaggerOptions = {
+  swagger: {
+      info: {
+          title: "Progect-Server",
+          description: "Progect-Server.",
+          version: "1.0.0",
+      },
+      host: "localhost",
+      schemes: ["http", "https"],
+      consumes: ["application/json"],
+      produces: ["application/json"],
+      tags: [{ name: "Default", description: "Default" }],
+  },
+};
 
+const swaggerUiOptions = {
+  routePrefix: "/docs",
+  exposeRoute: true,
+};
+
+ fastify.register(fastifySwagger, swaggerOptions);
+ fastify.register(fastifySwaggerUi, swaggerUiOptions);
 // multipart to get files in request
 fastify.register(multipart, { attachFieldsToBody: true });
 

@@ -13,6 +13,7 @@
     "@fastify/env": "^4.3.0",
     "@fastify/multipart": "^8.2.0",
     "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
     "@types/node": "^20.12.11",
     "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
