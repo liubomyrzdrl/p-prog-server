@@ -37,7 +37,6 @@ class AuthController {
         email,
         hashedPassword
       );
-      console.log("New user", newUser);
       const token = jwt.sign(username, "sdfgsdfgsdfgsdfg");
 
        reply.code(200).send({user: newUser, token});
@@ -46,24 +45,28 @@ class AuthController {
     }
   }
 
-  async authLogin(req: FastifyRequest, reply: FastifyReply) {
-    // const user = await AuthService.getTestUser();
-    // reply.code(200).send({
-    //   data: {
-    //     hello: `Auth ${user?.username} email: ${user?.email}`,
-    //   },
-    //   message: "Test Auth route",
-    // });
+  async authLogin(req: FastifyRequest<{
+    Body: ICreateUserInput;
+  }>, reply: FastifyReply) {
+    const { username, email, password } = req.body;
+    const existedUser = await AuthService.getUserByEmail(email);
+
+    const isValidPassword =  await argon2.verify(existedUser?.password as any, password);
+    
+    if(!existedUser || !isValidPassword) {
+      return reply.code(401).send({
+        message: 'Invalid email or password',
+      });
+    }
+
+    reply.code(200).send({ 
+      user : {
+      email: existedUser.username,
+      username:  existedUser.email,
+    },
+     token: jwt.sign(existedUser.username, "sdfgsdfgsdfgsdfg")
+   })
   }
-  // async authLogin(req: FastifyRequest, reply: FastifyReply) {
-  //   const user = await AuthService.getTestUser();
-  //   reply.code(200).send({
-  //     data: {
-  //       hello: `Auth ${user?.username} email: ${user?.email}`,
-  //     },
-  //     message: "Test Auth route",
-  //   });
-  // }
 }
 
 export default new AuthController();

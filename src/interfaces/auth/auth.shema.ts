@@ -30,7 +30,12 @@ const loginSchema = z.object({
 });
 export type LoginUserInput = z.infer<typeof loginSchema>;
 const loginResponseSchema = z.object({
-  accessToken: z.string(),
+  user: z.object({
+    // id: z.string(),
+    email: z.string(),
+    username: z.string(),
+  }),
+  token: z.string(),
 });
 // to build our JSON schema, we use buildJsonSchemas from fastify-zod
 // it returns all the schemas to register and a ref to refer these schemas

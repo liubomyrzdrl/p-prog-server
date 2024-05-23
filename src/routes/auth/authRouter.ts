@@ -16,7 +16,7 @@ const router = async (fastify: FastifyInstance) => {
    /**
    * @route POST /api/auth/login
    */
-  fastify.post("/login", authOptsLogin,  AuthController.authTest);
+  fastify.post("/login", authOptsLogin,  AuthController.authLogin as any);
 };
 
 export default router;

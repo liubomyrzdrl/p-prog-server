@@ -1,4 +1,5 @@
 import { DB } from "../config/dbConfig";
+import { ICreateUserInput } from "../interfaces/auth/types.auth";
 
 class AuthService {
   async createUser(username: string, email: string, password: string) {
@@ -22,7 +23,7 @@ class AuthService {
     }
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByEmail(email: string): Promise<ICreateUserInput | null >  {
     try {
       const user = await DB.user.findUnique({
         where: {
