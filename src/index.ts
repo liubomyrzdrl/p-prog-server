@@ -6,6 +6,7 @@ import fastifySwaggerUi from "@fastify/swagger-ui";
 import { config } from "./config/config";
 import router from "./routes";
 import { swaggerOptions, swaggerUiOptions } from "./config/swaggerOptions";
+import { userSchemas } from "./interfaces/auth/auth.shema";
 
 const fastify: FastifyInstance = Fastify({
   logger: true,
@@ -38,6 +39,9 @@ fastify.get("/", async (request, responce) => {
   return `<h1>Server Fastify</h1>`;
 });
 
+for (let schema of [...userSchemas]) {
+  fastify.addSchema(schema);
+}
 fastify.register(router, { prefix: "/api" });
 (async () => {
   try {
